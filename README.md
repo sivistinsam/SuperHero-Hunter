@@ -7,4 +7,9 @@ SuperHero Hunter Home Page
 
 
 Favourite Page:
+
 ![Screenshot 2023-07-16 at 4 54 54 PM](https://github.com/sivistinsam/SuperHero-Hunter/assets/57314972/a11f8d5e-7631-49fd-8360-c428d53a8405)
+
+Searching Superheroes:
+
+![Screenshot 2023-07-16 at 4 56 17 PM](https://github.com/sivistinsam/SuperHero-Hunter/assets/57314972/65186dc2-248d-42ad-9352-062efd4f9a39)
