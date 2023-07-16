@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Favorites</title>
+  <!-- custom css -->
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+  <div class="wrapper">
+    <div class = "logo">
+        <div class = "container">
+            <p><a href="index.html" id="super">Home</a></span><span id="favourite"><a href="favourite.html" id="favRite">Favourite</a></span></p>
+            
+        </div>
+    </div>
+    <!-- favorites container -->
+    <div class="container">
+      <h2 class="favPage">Favorites Page</h2>
+      <div id="favorites-list">
+        <!-- favorite movies will be displayed here -->
+      </div>
+    </div>
+    <!-- end of favorites container -->
+  </div>
+
+  <!-- favorites js -->
+  <script src="favorites.js"></script>
+  <script>
+    // Load and display favorite movies
+    window.addEventListener('DOMContentLoaded', () => {
+      const favoritesList = document.getElementById('favorites-list');
+      const favorites = getFavorites();
+
+      if (favorites.length > 0) {
+        favorites.forEach(async (movieId) => {
+          const result = await fetch(`https://www.omdbapi.com/?i=${movieId}&apikey=fc1fef96`);
+          const movieDetails = await result.json();
+          displayFavoriteMovie(favoritesList, movieDetails);
+        });
+      } else {
+        favoritesList.innerHTML = '<p class="fav">No favorite movies yet.</p>';
+      }
+    });
+
+    // Function to display a favorite movie
+    function displayFavoriteMovie(container, details) {
+      const movieContainer = document.createElement('div');
+      movieContainer.classList.add('favorite-movie');
+
+      movieContainer.innerHTML = `
+        <div class="movie-container">
+        <div class="movie-poster">
+          <img src="${(details.Poster != 'N/A') ? details.Poster : 'image_not_found.png'}" alt="movie poster">
+        </div>
+        <div class="movie-info">
+          <h3 class="movie-title">${details.Title}</h3>
+          <ul class="movie-misc-info">
+            <li class="year">Year: ${details.Year}</li>
+            <li class="rated">Ratings: ${details.Rated}</li>
+            <li class="released">Released: ${details.Released}</li>
+          </ul>
+          <p class="genre"><b>Genre:</b> ${details.Genre}</p>
+          <p class="writer"><b>Writer:</b> ${details.Writer}</p>
+          <p class="actors"><b>Actors: </b>${details.Actors}</p>
+          <p class="plot"><b>Plot:</b> ${details.Plot}</p>
+          <p class="language"><b>Language:</b> ${details.Language}</p>
+          <p class="awards"><b><i class="fas fa-award"></i></b> ${details.Awards}</p>
+          <button class="removeFromFavourite" onclick="removeFavorite('${details.imdbID}')">Remove Favorite</button>
+        </div>
+    </div>
+      `;
+
+      container.appendChild(movieContainer);
+    }
+  </script>
+</body>
+</html>
